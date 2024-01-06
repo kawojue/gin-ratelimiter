@@ -90,6 +90,7 @@ func RateLimiter(limiter *rate.Limiter, config *LimiterConfig) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		if !limiter.Allow() {
 			ctx.JSON(http.StatusTooManyRequests, gin.H{"error": config.Message})
+			return
 		}
 
 		ctx.Next()
